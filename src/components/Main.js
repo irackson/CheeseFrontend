@@ -24,30 +24,27 @@ const Main = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newCheese),
         });
+        getCheeses();
     };
 
     useEffect(() => {
         getCheeses();
     }, []);
 
-    if (cheeses) {
-        return <h2>{cheeses.map((e) => JSON.stringify(e))}</h2>;
-    } else {
-        return (
-            <main>
-                cheeses index page
-                <Switch>
-                    <Route exact path="/">
-                        <Index cheeses createCheese />
-                    </Route>
-                    <Route
-                        path="/cheese/:id"
-                        render={(rp) => <Show {...rp} />}
-                    />
-                </Switch>
-            </main>
-        );
-    }
+    return (
+        <main>
+            cheeses index page
+            <Switch>
+                <Route exact path="/">
+                    <Index cheeses={cheeses} createCheese={createCheese} />
+                </Route>
+                <Route
+                    path="/cheese/:id"
+                    render={(rp) => <Show cheeses={cheeses} {...rp} />}
+                ></Route>
+            </Switch>
+        </main>
+    );
 };
 
 export default Main;
