@@ -4,38 +4,41 @@ import Index from 'pages/Index';
 import Show from 'pages/Show';
 
 const Main = (props) => {
-    const [cheese, setCheese] = useState(null);
+    const [cheeses, setCheeses] = useState(null);
 
     const URL =
         process.env.NODE_ENV === 'production'
-            ? 'https://irackson-cheese-api.herokuapp.com/'
+            ? 'https://irackson-cheese-api.herokuapp.com/cheese'
             : 'http://localhost:4002/cheese';
 
-    const getCheese = async () => {
+    const getCheeses = async () => {
         const response = await fetch(URL);
-        console.log(response);
         const data = await response.json();
         console.log(data);
-        setCheese(data);
+        setCheeses(data);
     };
 
     const createCheese = async (newCheese) => {
-        // await fetch(URL);
+        await fetch(URL, {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newCheese),
+        });
     };
 
     useEffect(() => {
-        getCheese();
+        getCheeses();
     }, []);
 
-    if (cheese) {
-        return <h2>{JSON.stringify(cheese)}</h2>;
+    if (cheeses) {
+        return <h2>{cheeses.map((e) => JSON.stringify(e))}</h2>;
     } else {
         return (
             <main>
-                cheese index page
+                cheeses index page
                 <Switch>
                     <Route exact path="/">
-                        <Index />
+                        <Index cheeses createCheese />
                     </Route>
                     <Route
                         path="/cheese/:id"
