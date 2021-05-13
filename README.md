@@ -3,3 +3,5 @@
 frontend for Cheese App unit 3 deliverable
 
 deployed on netlify at <https://stupefied-swirles-edf6f3.netlify.app/>
+
+also available at <http://fullstackcheese.ianrackson.com/>

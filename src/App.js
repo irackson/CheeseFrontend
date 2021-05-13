@@ -1,12 +1,16 @@
 import 'App.scss';
+import Header from 'components/Header';
+import Main from 'components/Main';
 
 function App() {
-    const apiURL =
-        process.env.NODE_ENV === 'production'
-            ? 'https://irackson-cheese-api.herokuapp.com/'
-            : 'http://localhost:4001/';
-
-    return <div className="App">hello world</div>;
+    return (
+        <div className="App">
+            <div className="App">
+                <Header />
+                <Main />
+            </div>
+        </div>
+    );
 }
 
 export default App;
