@@ -11,6 +11,7 @@ const Show = (props) => {
         event.preventDefault();
         // console.log
         props.updateCheese({ ...originalCheese, ...editForm }, id);
+        // setEditForm({ ...originalCheese, ...editForm });
     };
 
     const [editForm, setEditForm] = useState(null);
@@ -28,13 +29,25 @@ const Show = (props) => {
             <Redirect to="/" />
         ) : (
             <div>
-                <h1>{cheese.name}</h1>
-                <img
-                    src={cheese.image}
-                    style={{ width: '100px', height: '100px' }}
-                    alt={cheese.name}
-                />
-                <h3>{cheese.countryOfOrigin}</h3>
+                <h1>
+                    {typeof editForm?.name === 'string'
+                        ? editForm.name
+                        : cheese.name}
+                </h1>
+                {cheese.image ? (
+                    <img
+                        src={cheese.image}
+                        style={{ width: '100px', height: '100px' }}
+                        alt={cheese.name}
+                    />
+                ) : null}
+                {cheese.countryOfOrigin ? (
+                    <h3>
+                        {typeof editForm?.countryOfOrigin === 'string'
+                            ? editForm.countryOfOrigin
+                            : cheese.countryOfOrigin}
+                    </h3>
+                ) : null}
                 <form
                     onChange={(event) => handleChange(event)}
                     onSubmit={(event) =>
@@ -44,20 +57,33 @@ const Show = (props) => {
                     <input
                         type="text"
                         name="name"
-                        value={editForm?.name || cheese.name}
+                        placeholder="name"
+                        value={
+                            typeof editForm?.name === 'string'
+                                ? editForm.name
+                                : cheese.name
+                        }
                         onChange={handleChange}
                     />
                     <input
                         type="text"
                         name="image"
-                        value={editForm?.image || cheese.image}
+                        placeholder="image"
+                        value={
+                            typeof editForm?.image === 'string'
+                                ? editForm.image
+                                : cheese.image
+                        }
                         onChange={handleChange}
                     />
                     <input
                         type="text"
                         name="countryOfOrigin"
+                        placeholder="country of origin"
                         value={
-                            editForm?.countryOfOrigin || cheese.countryOfOrigin
+                            typeof editForm?.countryOfOrigin === 'string'
+                                ? editForm.countryOfOrigin
+                                : cheese.countryOfOrigin
                         }
                         onChange={handleChange}
                     />
