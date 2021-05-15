@@ -63,6 +63,7 @@ const Index = (props) => {
                 <input
                     type="text"
                     name="name"
+                    required
                     placeholder="name"
                     onChange={handleChange}
                     ref={firstInput}

@@ -26,3 +26,32 @@ nav {
         }
     }
 }
+
+section,
+div {
+    form {
+        input {
+            @include white-text-black-bg();
+            padding: 10px;
+            font-size: 1.1em;
+            margin: 10px;
+
+            &[type='submit']:hover {
+                @include black-text-white-bg();
+            }
+        }
+    }
+}
+
+.delete-button {
+    @include white-text-black-bg();
+    display: block;
+    margin: auto;
+    font-size: 1.3em;
+    padding: 10px;
+}
+
+img {
+    border-radius: 90px;
+    object-fit: cover;
+}

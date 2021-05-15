@@ -9,9 +9,7 @@ const Show = (props) => {
     };
     const processUpdate = (event, originalCheese, id) => {
         event.preventDefault();
-        // console.log
         props.updateCheese({ ...originalCheese, ...editForm }, id);
-        // setEditForm({ ...originalCheese, ...editForm });
     };
 
     const [editForm, setEditForm] = useState(null);
@@ -37,8 +35,12 @@ const Show = (props) => {
                 {cheese.image ? (
                     <img
                         src={cheese.image}
-                        style={{ width: '100px', height: '100px' }}
-                        alt={cheese.name}
+                        style={{ width: '200px', height: '200px' }}
+                        alt={
+                            typeof editForm?.name === 'string'
+                                ? editForm.name
+                                : cheese.name
+                        }
                     />
                 ) : null}
                 {cheese.countryOfOrigin ? (
@@ -57,6 +59,7 @@ const Show = (props) => {
                     <input
                         type="text"
                         name="name"
+                        required
                         placeholder="name"
                         value={
                             typeof editForm?.name === 'string'
@@ -90,7 +93,9 @@ const Show = (props) => {
                     <button type="submit">Update Cheese</button>
                 </form>
                 <form onSubmit={(event) => processDelete(event, cheese._id)}>
-                    <button type="submit">Delete Cheese</button>
+                    <button className="delete-button" type="submit">
+                        Delete Cheese
+                    </button>
                 </form>
             </div>
         );
