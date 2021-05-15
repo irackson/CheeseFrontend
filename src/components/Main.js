@@ -18,6 +18,9 @@ const Main = (props) => {
     };
 
     const createCheese = async (newCheese) => {
+        if (newCheese.name === '') {
+            newCheese.name = 'Anonymous Cheese';
+        }
         await fetch(URL, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
@@ -27,6 +30,9 @@ const Main = (props) => {
     };
 
     const updateCheese = async (updateCheese, id) => {
+        if (updateCheese.name === '') {
+            updateCheese.name = 'Anonymous Cheese';
+        }
         await fetch(`${URL}/${id}`, {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },

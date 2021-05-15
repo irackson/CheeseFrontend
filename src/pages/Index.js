@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const Index = (props) => {
+    const formRef = useRef(null);
+    const firstInput = useRef(null);
     const [newForm, setNewForm] = useState({
         name: '',
         countryOfOrigin: '',
@@ -20,10 +22,11 @@ const Index = (props) => {
             countryOfOrigin: '',
             image: '',
         });
+        formRef.current.reset();
+        firstInput.current.focus();
     };
 
     const loaded = () => {
-        console.log(props.cheeses.length);
         return (
             <>
                 {props.cheeses.map((cheese) => (
@@ -31,12 +34,16 @@ const Index = (props) => {
                         <Link to={`/cheese/${cheese._id}`}>
                             <h1>{cheese.name}</h1>
                         </Link>
-                        <img
-                            src={cheese.image}
-                            style={{ width: '100px', height: '100px' }}
-                            alt={cheese.name}
-                        />
-                        <h3>{cheese.countryOfOrigin}</h3>
+                        {cheese.image ? (
+                            <img
+                                src={cheese.image}
+                                style={{ width: '100px', height: '100px' }}
+                                alt={cheese.name}
+                            />
+                        ) : null}
+                        {cheese.countryOfOrigin ? (
+                            <h3>{cheese.countryOfOrigin}</h3>
+                        ) : null}
                     </div>
                 ))}
             </>
@@ -49,12 +56,16 @@ const Index = (props) => {
 
     return (
         <section>
-            <form onSubmit={handleSubmit}>
+            <form
+                ref={formRef}
+                onSubmit={(event) => handleSubmit(event) && this.res}
+            >
                 <input
                     type="text"
                     name="name"
                     placeholder="name"
                     onChange={handleChange}
+                    ref={firstInput}
                 />
                 <input
                     type="text"
