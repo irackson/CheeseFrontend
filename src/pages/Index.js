@@ -23,6 +23,7 @@ const Index = (props) => {
     };
 
     const loaded = () => {
+        console.log(props.cheeses.length);
         return (
             <>
                 {props.cheeses.map((cheese) => (

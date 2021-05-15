@@ -14,7 +14,6 @@ const Main = (props) => {
     const getCheeses = async () => {
         const response = await fetch(URL);
         const data = await response.json();
-        console.log(data);
         setCheeses(data);
     };
 
@@ -27,20 +26,42 @@ const Main = (props) => {
         getCheeses();
     };
 
+    const updateCheese = async (updateCheese, id) => {
+        await fetch(`${URL}/${id}`, {
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateCheese),
+        });
+        getCheeses();
+    };
+
+    const deleteCheese = async (id) => {
+        await fetch(`${URL}/${id}`, {
+            method: 'delete',
+        });
+        getCheeses();
+    };
+
     useEffect(() => {
         getCheeses();
     }, []);
 
     return (
         <main>
-            cheeses index page
             <Switch>
                 <Route exact path="/">
                     <Index cheeses={cheeses} createCheese={createCheese} />
                 </Route>
                 <Route
                     path="/cheese/:id"
-                    render={(rp) => <Show cheeses={cheeses} {...rp} />}
+                    render={(rp) => (
+                        <Show
+                            cheeses={cheeses}
+                            updateCheese={updateCheese}
+                            deleteCheese={deleteCheese}
+                            {...rp}
+                        />
+                    )}
                 ></Route>
             </Switch>
         </main>
