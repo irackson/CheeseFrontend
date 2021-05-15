@@ -30,7 +30,8 @@ nav {
 section,
 div {
     form {
-        input {
+        input,
+        button {
             @include white-text-black-bg();
             padding: 10px;
             font-size: 1.1em;
