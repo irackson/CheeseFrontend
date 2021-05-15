@@ -50,6 +50,7 @@ const Main = (props) => {
 
     useEffect(() => {
         getCheeses();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
